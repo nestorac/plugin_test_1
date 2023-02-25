@@ -1,6 +1,8 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://assets/wyvernshield/combat_moves/firebomb.gd" type="Script" id=1]
+[ext_resource path="res://resources/Textures/fireblast1.png" type="Texture" id=2]
+[ext_resource path="res://resources/Sounds/explosion.wav" type="AudioStream" id=3]
 
 [sub_resource type="SphereShape" id=1]
 radius = 0.236712
@@ -56,6 +58,18 @@ tracks/2/keys = {
 "update": 0,
 "values": [ 1.0 ]
 }
+tracks/3/type = "value"
+tracks/3/path = NodePath("Particles:emitting")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
 
 [sub_resource type="Animation" id=5]
 resource_name = "explode"
@@ -95,6 +109,48 @@ tracks/2/keys = {
 "update": 0,
 "values": [ 1.0, 1.0, 0.0 ]
 }
+tracks/3/type = "value"
+tracks/3/path = NodePath("Particles:emitting")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/4/type = "audio"
+tracks/4/path = NodePath("AudioStreamPlayer")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 3 )
+} ],
+"times": PoolRealArray( 0 )
+}
+
+[sub_resource type="ParticlesMaterial" id=7]
+direction = Vector3( 0, 1, 0 )
+spread = 180.0
+initial_velocity = 10.0
+initial_velocity_random = 1.0
+linear_accel = 10.0
+linear_accel_random = 0.5
+
+[sub_resource type="SpatialMaterial" id=8]
+flags_transparent = true
+albedo_texture = ExtResource( 2 )
+
+[sub_resource type="PlaneMesh" id=9]
+material = SubResource( 8 )
+size = Vector2( 1, 1 )
 
 [node name="Projectile" type="Area"]
 collision_layer = 0
@@ -131,3 +187,17 @@ texture = SubResource( 3 )
 autoplay = "RESET"
 anims/RESET = SubResource( 6 )
 anims/explode = SubResource( 5 )
+
+[node name="Particles" type="Particles" parent="."]
+transform = Transform( -0.00136096, -0.104242, -0.994551, -0.999915, 0.0130547, 0, 0.0129836, 0.994466, -0.104251, 0, 0.908129, -0.444057 )
+emitting = false
+amount = 100
+lifetime = 0.8
+one_shot = true
+explosiveness = 0.5
+randomness = 0.5
+process_material = SubResource( 7 )
+draw_pass_1 = SubResource( 9 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )

@@ -80,8 +80,6 @@ func _set_stats(v):
 	stats = v
 	# Duplicate the array - if it's not, new sheets will be added to the same array which all enemies share
 	
-	print ("stats: ", stats) # DEBUGGING PURPOSES
-	
 	stats.subsheets = stats.subsheets.duplicate()
 	stats.recalculate_recursively()
 	if stats.connect("changed", self, "_on_stats_changed") != OK:
