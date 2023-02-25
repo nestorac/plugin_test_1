@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://addons/wyvernshield_RPG/combat_actor.gd" type="Script" id=1]
+
+[sub_resource type="SphereShape" id=1]
+radius = 1.18975
+
+[sub_resource type="SphereMesh" id=2]
+
+[sub_resource type="SpatialMaterial" id=3]
+albedo_color = Color( 0, 0.0627451, 1, 1 )
+
+[sub_resource type="SpatialMaterial" id=4]
+albedo_color = Color( 1, 0, 0, 1 )
+
+[node name="Spatial" type="Spatial"]
+
+[node name="ElBueno" type="StaticBody" parent="."]
+script = ExtResource( 1 )
+
+[node name="CollisionShape" type="CollisionShape" parent="ElBueno"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.106695, 0, 0 )
+shape = SubResource( 1 )
+
+[node name="MeshInstance" type="MeshInstance" parent="ElBueno"]
+mesh = SubResource( 2 )
+material/0 = SubResource( 3 )
+
+[node name="ElMalo" type="StaticBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.38168, 0, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="ElMalo"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.106695, 0, 0 )
+shape = SubResource( 1 )
+
+[node name="MeshInstance" type="MeshInstance" parent="ElMalo"]
+mesh = SubResource( 2 )
+material/0 = SubResource( 4 )
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 0.998149, -0.0179732, -0.0580957, 0.0330133, -0.642149, 0.765869, -0.0510712, -0.766369, -0.640367, 0, 9.37326, -7.91264 )
+fov = 22.5

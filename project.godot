@@ -1,0 +1,151 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "Node",
+"class": "CombatActor",
+"language": "GDScript",
+"path": "res://addons/wyvernshield_RPG/combat_actor.gd"
+}, {
+"base": "Resource",
+"class": "CombatMove",
+"language": "GDScript",
+"path": "res://addons/wyvernshield_RPG/combat_powers/combat_move.gd"
+}, {
+"base": "Area",
+"class": "DamageArea",
+"language": "GDScript",
+"path": "res://addons/wyvernshield_RPG/combat_powers/damage_area.gd"
+}, {
+"base": "Area2D",
+"class": "DamageArea2D",
+"language": "GDScript",
+"path": "res://addons/wyvernshield_RPG/combat_powers/damage_area2D.gd"
+}, {
+"base": "KinematicBody",
+"class": "Hero",
+"language": "GDScript",
+"path": "res://assets/wyvernshield/scenes/hero.gd"
+}, {
+"base": "Weapon",
+"class": "HeroWeapon",
+"language": "GDScript",
+"path": "res://addons/wyvernshield_RPG/combat_powers/hero_weapon.gd"
+}, {
+"base": "Area",
+"class": "Hurtbox",
+"language": "GDScript",
+"path": "res://addons/wyvernshield_RPG/hurtbox.gd"
+}, {
+"base": "Area2D",
+"class": "Hurtbox2D",
+"language": "GDScript",
+"path": "res://addons/wyvernshield_RPG/hurtbox2D.gd"
+}, {
+"base": "Resource",
+"class": "StatSheet",
+"language": "GDScript",
+"path": "res://addons/wyvernshield_RPG/stat_sheet.gd"
+}, {
+"base": "Node",
+"class": "StatusCarrier",
+"language": "GDScript",
+"path": "res://addons/wyvernshield_RPG/status_effects/status_carrier.gd"
+}, {
+"base": "Spatial",
+"class": "StatusCarrierView",
+"language": "GDScript",
+"path": "res://addons/wyvernshield_RPG/status_effects/status_carrier_view.gd"
+}, {
+"base": "HBoxContainer",
+"class": "StatusCarrierView2D",
+"language": "GDScript",
+"path": "res://addons/wyvernshield_RPG/status_effects/status_carrier_view_2D.gd"
+}, {
+"base": "Resource",
+"class": "StatusEffect",
+"language": "GDScript",
+"path": "res://addons/wyvernshield_RPG/status_effects/status_effect.gd"
+}, {
+"base": "Resource",
+"class": "TriggerLibrary",
+"language": "GDScript",
+"path": "res://addons/wyvernshield_RPG/triggers/trigger_library.gd"
+}, {
+"base": "Resource",
+"class": "TriggerProperties",
+"language": "GDScript",
+"path": "res://addons/wyvernshield_RPG/triggers/trigger_properties.gd"
+}, {
+"base": "Resource",
+"class": "TriggerReaction",
+"language": "GDScript",
+"path": "res://addons/wyvernshield_RPG/triggers/trigger_reaction.gd"
+}, {
+"base": "Resource",
+"class": "TriggerReactionInstance",
+"language": "GDScript",
+"path": "res://addons/wyvernshield_RPG/triggers/trigger_reaction_instance.gd"
+}, {
+"base": "Resource",
+"class": "TriggerSheet",
+"language": "GDScript",
+"path": "res://addons/wyvernshield_RPG/triggers/trigger_sheet.gd"
+}, {
+"base": "Reference",
+"class": "TriggerStatic",
+"language": "GDScript",
+"path": "res://addons/wyvernshield_RPG/triggers/trigger_static.gd"
+}, {
+"base": "Spatial",
+"class": "Weapon",
+"language": "GDScript",
+"path": "res://addons/wyvernshield_RPG/combat_powers/weapon.gd"
+} ]
+_global_script_class_icons={
+"CombatActor": "res://addons/wyvernshield_RPG/combat_actor.svg",
+"CombatMove": "res://addons/wyvernshield_RPG/combat_powers/combat_move.svg",
+"DamageArea": "",
+"DamageArea2D": "",
+"Hero": "",
+"HeroWeapon": "",
+"Hurtbox": "",
+"Hurtbox2D": "",
+"StatSheet": "res://addons/wyvernshield_RPG/stat_sheet.svg",
+"StatusCarrier": "",
+"StatusCarrierView": "",
+"StatusCarrierView2D": "",
+"StatusEffect": "res://addons/wyvernshield_RPG/status_effects/status_effect.svg",
+"TriggerLibrary": "",
+"TriggerProperties": "",
+"TriggerReaction": "res://addons/wyvernshield_RPG/triggers/trigger_reaction.svg",
+"TriggerReactionInstance": "",
+"TriggerSheet": "",
+"TriggerStatic": "",
+"Weapon": ""
+}
+
+[application]
+
+config/name="Plugin Test 1"
+run/main_scene="res://resources/Scenes/Scene.tscn"
+config/icon="res://icon.png"
+
+[gui]
+
+common/drop_mouse_on_gui_input_disabled=true
+
+[physics]
+
+common/enable_pause_aware_picking=true
+
+[rendering]
+
+environment/default_environment="res://default_env.tres"
