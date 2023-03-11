@@ -1,7 +1,7 @@
 class_name TriggerReaction, "./trigger_reaction.svg"
 extends Resource
 
-export(int,
+@export(int,
 	"Tick",
 	"Combat Move",
 	"Combat Move Get Cost",
@@ -14,12 +14,12 @@ export(int,
 	"Npc Defeated",
 	"Item Pickup"
 ) var trigger := 0
-export var priority := 100
-export var reaction_class : Script = GDScript.new()
-export var reaction_func := "apply_to"
-export var allow_duplicates := true
-export(String, MULTILINE) var editor_extra
-export var extra_vars := []
+@export var priority := 100
+@export var reaction_class : Script = GDScript.new()
+@export var reaction()_func := "apply_to"
+@export var allow_duplicates := true
+@export var editor_extra # (String, MULTILINE)
+@export var extra_vars := []
 
 
 func apply(result : Array, actor):

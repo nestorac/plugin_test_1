@@ -4,8 +4,8 @@ extends Node
 signal status_effect_applied(effect, insert_pos)
 signal status_effect_removed(effect, insert_pos)
 
-export var combat_actor_path := NodePath("..") setget _set_combat_actor_path
-export(int, "Physics", "Idle") var process_mode setget _set_process_mode
+@export var combat_actor_path := NodePath("..") : set = _set_combat_actor_path
+@export var process_mode setget _set_process_mode # (int, "Physics", "Idle")
 
 var list := []
 var status_stat_sheet : StatSheet

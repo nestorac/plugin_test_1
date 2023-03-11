@@ -1,10 +1,10 @@
 class_name Hurtbox
-extends Area
+extends Area3D
 
-export var combat_actor_path := NodePath("..") setget _set_combat_actor
+@export var combat_actor_path := NodePath("..") : set = _set_combat_actor
 
 var combat_actor : Node
-var alive : bool setget , _is_alive
+var alive : bool : get = _is_alive
 
 
 func _is_alive():

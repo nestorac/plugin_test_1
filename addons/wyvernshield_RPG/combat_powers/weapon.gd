@@ -1,13 +1,13 @@
 class_name Weapon
-extends Spatial
+extends Node3D
 
 signal attacking_state_changed(is_attacking)
 signal hit_target(hit_result)
 signal finish_target(hit_result)
 
-export var combat_actor_path := NodePath("..") setget _set_combat_actor
+@export var combat_actor_path := NodePath("..") : set = _set_combat_actor
 
-onready var global := $"Node"
+@onready var global := $"Node"
 
 var time := 0.0
 var next_shot_sec := 0.0
@@ -42,8 +42,8 @@ func use_power(power, look_vec : Vector3, is_weapon_attack : bool = false):
 		emit_signal("attacking_state_changed", true)
 
 	for x in result[TriggerStatic.COMBAT_MOVE_SPAWNED_OBJECTS]:
-		x.connect("hit_target", self, "_on_hit_target")
-		x.connect("finish_target", self, "_on_finish_target")
+		x.connect("hit_target",Callable(self,"_on_hit_target"))
+		x.connect("finish_target",Callable(self,"_on_finish_target"))
 
 
 func _on_hit_target(result):

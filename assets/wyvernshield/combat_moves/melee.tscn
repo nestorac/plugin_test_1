@@ -2,13 +2,13 @@
 
 [ext_resource path="res://addons/wyvernshield_RPG/combat_powers/damage_area.gd" type="Script" id=1]
 
-[sub_resource type="SphereShape" id=7]
+[sub_resource type="SphereShape3D" id=7]
 radius = 0.75
 
 [sub_resource type="Gradient" id=4]
 interpolation_mode = 2
-offsets = PoolRealArray( 0.74386, 1 )
-colors = PoolColorArray( 1, 1, 1, 1, 1, 0.773438, 0, 0 )
+offsets = PackedFloat32Array( 0.74386, 1 )
+colors = PackedColorArray( 1, 1, 1, 1, 1, 0.773438, 0, 0 )
 
 [sub_resource type="GradientTexture2D" id=5]
 gradient = SubResource( 4 )
@@ -19,31 +19,31 @@ fill_to = Vector2( 0.5, 1 )
 [sub_resource type="Animation" id=6]
 resource_name = "Init"
 tracks/0/type = "value"
-tracks/0/path = NodePath("Shape/Sprite:opacity")
+tracks/0/path = NodePath("Shape3D/Sprite2D:opacity")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0.1, 0.2 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array( 0.1, 0.2 ),
+"transitions": PackedFloat32Array( 1, 1 ),
 "update": 0,
 "values": [ 1.0, 0.0 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Shape/Sprite:scale")
+tracks/1/path = NodePath("Shape3D/Sprite2D:scale")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array( 0, 0.2 ),
+"transitions": PackedFloat32Array( 1, 1 ),
 "update": 0,
 "values": [ Vector3( 2, 2, 2 ), Vector3( 2.5, 2.5, 2.5 ) ]
 }
 
-[node name="Area" type="Area"]
+[node name="Area3D" type="Area3D"]
 collision_layer = 8
 collision_mask = 16
 script = ExtResource( 1 )
@@ -52,12 +52,12 @@ pierce_count = 1
 is_spectral = true
 lifetime = 5.0
 
-[node name="Shape" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.25 )
+[node name="Shape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.25 )
 shape = SubResource( 7 )
 
-[node name="Sprite" type="Sprite3D" parent="Shape"]
-transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2.07871, 0, 0, 0 )
+[node name="Sprite2D" type="Sprite3D" parent="Shape3D"]
+transform = Transform3D( 2, 0, 0, 0, 2, 0, 0, 0, 2.07871, 0, 0, 0 )
 axis = 1
 texture = SubResource( 5 )
 

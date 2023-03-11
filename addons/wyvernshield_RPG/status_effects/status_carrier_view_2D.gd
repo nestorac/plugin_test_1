@@ -1,8 +1,8 @@
 class_name StatusCarrierView2D
 extends HBoxContainer
 
-export var icon_scene : PackedScene
-export var show_duration := true
+@export var icon_scene : PackedScene
+@export var show_duration := true
 
 var effect_list := []
 var effect_nodes := []
@@ -18,7 +18,7 @@ func _process(_delta):
 
 
 func _on_status_effect_applied(effect, insert_pos):
-	var node = icon_scene.instance()
+	var node = icon_scene.instantiate()
 
 	effect_list.insert(insert_pos, effect)
 	effect_nodes.insert(insert_pos, node)

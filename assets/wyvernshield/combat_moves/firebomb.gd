@@ -1,7 +1,7 @@
 extends DamageArea
 
-export var gravity_up := 16.0
-export var gravity_down := 24.0
+@export var gravity_up := 16.0
+@export var gravity_down := 24.0
 
 var stage := 0
 
@@ -20,16 +20,16 @@ func destroy():
 	# Hit Ground
 	if stage == 1:
 		# Raycast helps align with ground.
-		$"RayCast".force_raycast_update()
-		if $"RayCast".is_colliding():
-			global_translation = $"RayCast".get_collision_point() + Vector3(0, 0.05, 0)
+		$"RayCast3D".force_raycast_update()
+		if $"RayCast3D".is_colliding():
+			$global_translation = $"RayCast3D".get_collision_point() + Vector3(0, 0.05, 0)
 
-		$"Shape".disabled = true
+		$"Shape3D".disabled = true
 		$"ExplosionShape".disabled = false
 
 		is_spectral = true
 		velocity = Vector3.ZERO
-		set_collision_layer_bit(3, true)
+		set_collision_layer_value(3, true)
 
 		$"Anim".play("explode")
 		$"Sprite3D".visible = false

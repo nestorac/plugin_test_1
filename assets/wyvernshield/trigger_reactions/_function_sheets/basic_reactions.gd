@@ -17,7 +17,7 @@ func hero_weapon_attack(info, attacker):
 		x.pierce_count = stats.get_stat("weapon_pierce_count")
 		x.pierce_damage_loss = stats.get_stat("weapon_pierce_damage_loss")
 		x.translate(x.velocity.normalized() * x.initial_move_forward)
-		if x is Spatial:
+		if x is Node3D:
 			x.rotate(Vector3.UP, -x.velocity.signed_angle_to(Vector3.FORWARD, Vector3.UP))
 
 		else:
@@ -61,17 +61,17 @@ func damage_numbers(info, defender):
 
 	var scene : PackedScene = extra_vars[0]
 	var translation_random : Vector3 = extra_vars[1] if extra_vars.size() >= 2 else Vector3.ZERO
-	var rotation_random := deg2rad(extra_vars[2]) if extra_vars.size() >= 3 else 0.0
-	var color : Color = extra_vars[3] if extra_vars.size() >= 4 else Color.white
+	var rotation_random := deg_to_rad(extra_vars[2]) if extra_vars.size() >= 3 else 0.0
+	var color : Color = extra_vars[3] if extra_vars.size() >= 4 else Color.WHITE
 	
-	var nums = scene.instance()
+	var nums = scene.instantiate()
 	defender.get_node("/root").add_child(nums)
-	nums.translation = defender.global_translation + Vector3(
-		translation_random.x * rand_range(-1.0, 1.0),
-		translation_random.y * rand_range(-1.0, 1.0),
-		translation_random.z * rand_range(-1.0, 1.0)
+	nums.position = defender.global_translation + Vector3(
+		translation_random.x * randf_range(-1.0, 1.0),
+		translation_random.y * randf_range(-1.0, 1.0),
+		translation_random.z * randf_range(-1.0, 1.0)
 	)
-	nums.rotate(defender.transform.basis.xform(Vector3.BACK), rand_range(-1.0, 1.0) * rotation_random)
+	nums.rotate(defender.transform.basis * Vector3.BACK, randf_range(-1.0, 1.0) * rotation_random)
 	nums.get_node("Label").text = str(floor(abs(info[damage_index_in_info])))
 	nums.get_node("Label").modulate = color
 
@@ -86,7 +86,7 @@ func split_projectiles(info, _attacker):
 		for i in extra_vars[0] + 1:
 			new_node = x.duplicate(Node.DUPLICATE_GROUPS | Node.DUPLICATE_SIGNALS | Node.DUPLICATE_SCRIPTS)
 			new_objects_arr.append(new_node)
-			new_node.velocity = x.velocity.rotated(Vector3.UP, deg2rad(angle_start + angle_step * i))
+			new_node.velocity = x.velocity.rotated(Vector3.UP, deg_to_rad(angle_start + angle_step * i))
 			# Not needed: the Attack object will attach these to the origin node.
 			#x.get_parent().add_child(new_node)
 
@@ -98,8 +98,8 @@ func split_projectiles(info, _attacker):
 func spawn_on_kill(info, attacker):
 	if randf() > extra_vars[1]: return
 	
-	var new_node = extra_vars[0].instance()
-	new_node.translation = info[TriggerStatic.NPC_DEFEATED_TARGET].global_translation
+	var new_node = extra_vars[0].instantiate()
+	new_node.position = info[TriggerStatic.NPC_DEFEATED_TARGET].global_translation
 	attacker.get_viewport().add_child(new_node)
 
 

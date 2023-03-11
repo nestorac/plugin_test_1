@@ -1,13 +1,13 @@
-tool
+@tool
 class_name TriggerLibrary
 extends Resource
 
-export(Array, Resource) var list setget _set_list
+@export var list setget _set_list # (Array, Resource)
 
-export var force_update := false setget _set_force_update
+@export var force_update := false : set = _set_force_update
 
-export var reaction_class : Script setget _set_reaction_class
-export var static_class : Script setget _set_static_class
+@export var reaction_class : Script : set = _set_reaction_class
+@export var static_class : Script : set = _set_static_class
 
 
 func _set_list(v):
@@ -30,7 +30,7 @@ func _set_static_class(v):
 
 
 func update_classes():
-	var name_list = PoolStringArray()
+	var name_list = PackedStringArray()
 	name_list.resize(list.size())
 	for i in name_list.size():
 		if list[i] == null:
@@ -137,4 +137,4 @@ func string_snake_to_naming_case(string : String, add_spaces : bool = false) -> 
 	for i in split.size():
 		split[i] = split[i][0].to_upper() + split[i].substr(1).to_lower()
 	
-	return (" " if add_spaces else "").join(split)
+	return (" " if add_spaces else ""split.join())

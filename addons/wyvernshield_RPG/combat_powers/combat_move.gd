@@ -1,20 +1,20 @@
-tool
-class_name CombatMove, "./combat_move.svg"
+@tool
+class_name CombatMove #, "./combat_move.svg"
 extends Resource
 
-export var base_power := 1.0
-export(Array, float) var energy_costs := [1.0] setget _set_energy_costs
-export(Array, String) var energy_types := ["magic"] setget _set_energy_types
-export var weapon_cooldown : float
-export var all_specials_cooldown : float
+@export var base_power := 1.0
+@export var energy_costs := [1.0] : set = _set_energy_costs # (Array, float)
+@export var energy_types := ["magic"] : set = _set_energy_types # (Array, String)
+@export var weapon_cooldown : float
+@export var all_specials_cooldown : float
 
-export var spawn_scene : PackedScene
-export(int, "Root Node", "Child Local Coords") var spawn_mode := 0
+@export var spawn_scene : PackedScene
+@export var spawn_mode := 0 # (int, "Root Node", "Child Local Coords")
 
-export(String, MULTILINE) var stats_on_use := ""
-export(String, MULTILINE) var stats_on_hit := ""
-export(Array, Resource) var on_use_trigger_reactions : Array setget _set_trigger_reactions
-export(Array, Resource) var on_hit_trigger_reactions : Array
+@export var stats_on_use := "" # (String, MULTILINE)
+@export var stats_on_hit := "" # (String, MULTILINE)
+@export var on_use_trigger_reactions : Array : set = _set_trigger_reactions # (Array, Resource)
+@export var on_hit_trigger_reactions : Array # (Array, Resource)
 
 var trigger_sheet : TriggerSheet
 
@@ -81,7 +81,7 @@ func use(actor : CombatActor, aim_relative, origin_node : Node, is_weapon_attack
 	if !_use_generic(actor): return []
 	var spawned_node : Node
 	if spawn_scene != null:
-		spawned_node = spawn_scene.instance()
+		spawned_node = spawn_scene.instantiate()
 		spawned_node.damage = base_power
 		spawned_node.sender = actor
 		spawned_node.hit_stat_changes = stats_on_hit
@@ -100,12 +100,12 @@ func use(actor : CombatActor, aim_relative, origin_node : Node, is_weapon_attack
 	actor.triggers.apply_reactions(TriggerStatic.TRIGGER_COMBAT_MOVE, result, actor)
 	
 	for x in result[TriggerStatic.COMBAT_MOVE_SPAWNED_OBJECTS]:
-		x.connect("hit_target", actor, "_on_hit_target", [is_weapon_attack])
-		x.connect("finish_target", actor, "_on_finish_target", [is_weapon_attack])
+		x.connect("hit_target",Callable(actor,"_on_hit_target").bind(is_weapon_attack))
+		x.connect("finish_target",Callable(actor,"_on_finish_target").bind(is_weapon_attack))
 		if spawn_mode == 0:
 			origin_node.get_viewport().add_child(x)
-			if x is Spatial:
-				x.translation += origin_node.global_translation
+			if x is Node3D:
+				x.position += origin_node.global_translation
 	
 			else:
 				x.position += origin_node.global_position

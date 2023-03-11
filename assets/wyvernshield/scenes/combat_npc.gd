@@ -1,10 +1,13 @@
-extends KinematicBody
+extends CharacterBody3D
 
-export var move_max_speed := 4.0
+@export var move_max_speed := 4.0
 
 
 func _physics_process(_delta):
-	move_and_slide(Vector3(0, -8.0, 0), Vector3.UP, true)
+	set_velocity(Vector3(0, -8.0, 0))
+	set_up_direction(Vector3.UP)
+	set_floor_stop_on_slope_enabled(true)
+	move_and_slide()
 	
 
 func _on_combat_health_changed(v, old_v):

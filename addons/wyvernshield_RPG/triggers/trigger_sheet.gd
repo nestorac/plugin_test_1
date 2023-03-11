@@ -1,7 +1,7 @@
 class_name TriggerSheet
 extends Resource
 
-export var initial_reactions := [] setget _set_initial_reactions
+@export var initial_reactions := [] : set = _set_initial_reactions
 
 var reactions := []
 
@@ -28,7 +28,7 @@ func apply_reactions(action_id : int, result : Array, subject : Node = null):
 	return result
 
 
-func add_reaction(reaction : TriggerReaction, extra_vars = null) -> Reference:
+func add_reaction(reaction : TriggerReaction, extra_vars = null) -> RefCounted:
 	var arr = reactions[reaction.trigger]
 
 	if !reaction.allow_duplicates:

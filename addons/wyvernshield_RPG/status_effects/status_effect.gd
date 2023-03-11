@@ -1,22 +1,22 @@
-class_name StatusEffect, "./status_effect.svg"
+class_name StatusEffect #, "./status_effect.svg"
 extends Resource
 
 # Leave blank to allow stacking.
-export var does_not_stack_with_id := ""
-export var function_class : Script setget _set_function_class
-export var function_on_applied : String
-export var function_on_expired : String
-export var function_on_stacked : String
-export var icon : Texture
-export(Array, Resource) var trigger_reactions_to_add := []
-export(Array, Resource) var stat_sheets_to_add := []
-export var extra_vars := []
+@export var does_not_stack_with_id := ""
+@export var function_class : Script : set = _set_function_class
+@export var function_on_applied : String
+@export var function_on_expired : String
+@export var function_on_stacked : String
+@export var icon : Texture2D
+@export var trigger_reactions_to_add := [] # (Array, Resource)
+@export var stat_sheets_to_add := [] # (Array, Resource)
+@export var extra_vars := []
 
 var potency
 var sender
 var carrier
-var expiration_time_sec := 0.0 setget _set_expiration_time
-var duration_sec setget _set_duration, _get_duration
+var expiration_time_sec := 0.0 : set = _set_expiration_time
+var duration_sec : get = _get_duration, set = _set_duration
 var function_class_instance
 
 

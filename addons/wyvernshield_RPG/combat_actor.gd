@@ -1,5 +1,5 @@
-tool
-class_name CombatActor, "./combat_actor.svg"
+@tool
+class_name CombatActor #, "./combat_actor.svg"
 extends Node
 
 signal health_changed(new_value, old_value)
@@ -7,17 +7,17 @@ signal health_depleted()
 signal energy_changed(new_value, old_value, energy_type)
 signal stats_changed(stat_sheet)
 
-export var stats : Resource setget _set_stats
-export var health := 20.0 setget _set_health
-export var health_percent := 1.0 setget _set_health_percent
-export(Array, String) var energy_types : Array setget _set_energy_types
-export(Array, float) var energy_amounts : Array setget _set_energy_amounts
-export var regen_suffix := "_regen"
-export var max_health_stat := "health"
-export(int, "Physics", "Idle", "None / Manual (via regen_tick())") var natural_regen_process_mode := 2 setget _set_process_mode
-export var status_path := NodePath("StatusCarrier")
+@export var stats : Resource : set = _set_stats
+@export var health := 20.0 : set = _set_health
+@export var health_percent := 1.0 : set = _set_health_percent
+@export var energy_types : Array : set = _set_energy_types # (Array, String)
+@export var energy_amounts : Array : set = _set_energy_amounts # (Array, float)
+@export var regen_suffix := "_regen"
+@export var max_health_stat := "health"
+@export var natural_regen_process_mode := 2 : set = _set_process_mode # (int, "Physics", "Idle", "None / Manual (via regen_tick())")
+@export var status_path := NodePath("StatusCarrier")
 
-export(Array, Resource) var initial_trigger_reactions setget _set_initial_trigger_reactions
+@export var initial_trigger_reactions := 0 : set = _set_initial_trigger_reactions # (Array, Resource)
 
 var status : Node
 
@@ -75,14 +75,14 @@ func _set_health_percent(v):
 
 func _set_stats(v):
 	if is_instance_valid(stats):
-		stats.disconnect("changed", self, "_on_stats_changed")
+		stats.disconnect("changed",Callable(self,"_on_stats_changed"))
 	
 	stats = v
 	# Duplicate the array - if it's not, new sheets will be added to the same array which all enemies share
 	
 	stats.subsheets = stats.subsheets.duplicate()
 	stats.recalculate_recursively()
-	if stats.connect("changed", self, "_on_stats_changed") != OK:
+	if stats.connect("changed",Callable(self,"_on_stats_changed")) != OK:
 		printerr("Error! Could not connect StatSheet::changed (_set_stats in combat_actor.gd)")
 
 

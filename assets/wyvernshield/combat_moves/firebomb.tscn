@@ -1,15 +1,15 @@
 [gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://assets/wyvernshield/combat_moves/firebomb.gd" type="Script" id=1]
-[ext_resource path="res://resources/Textures/fireblast1.png" type="Texture" id=2]
+[ext_resource path="res://resources/Textures/fireblast1.png" type="Texture2D" id=2]
 [ext_resource path="res://resources/Sounds/explosion.wav" type="AudioStream" id=3]
 
-[sub_resource type="SphereShape" id=1]
+[sub_resource type="SphereShape3D" id=1]
 radius = 0.236712
 
 [sub_resource type="Gradient" id=2]
-offsets = PoolRealArray( 0.643939, 0.776515, 0.916667, 0.94697, 1 )
-colors = PoolColorArray( 1, 0.796875, 0, 1, 1, 0.376471, 0, 1, 1, 0.431373, 0.0745098, 1, 1, 0.602876, 0.311111, 0.311111, 1, 0.423529, 0, 0 )
+offsets = PackedFloat32Array( 0.643939, 0.776515, 0.916667, 0.94697, 1 )
+colors = PackedColorArray( 1, 0.796875, 0, 1, 1, 0.376471, 0, 1, 1, 0.431373, 0.0745098, 1, 1, 0.602876, 0.311111, 0.311111, 1, 0.423529, 0, 0 )
 
 [sub_resource type="GradientTexture2D" id=3]
 gradient = SubResource( 2 )
@@ -17,7 +17,7 @@ fill = 1
 fill_from = Vector2( 0.509722, 0.481944 )
 fill_to = Vector2( 0.520833, 0 )
 
-[sub_resource type="CylinderShape" id=4]
+[sub_resource type="CylinderShape3D" id=4]
 radius = 1.5
 
 [sub_resource type="Animation" id=6]
@@ -29,8 +29,8 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array( 0 ),
+"transitions": PackedFloat32Array( 1 ),
 "update": 0,
 "values": [ Vector3( 0, 0, 0 ) ]
 }
@@ -41,8 +41,8 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array( 0 ),
+"transitions": PackedFloat32Array( 1 ),
 "update": 0,
 "values": [ true ]
 }
@@ -53,8 +53,8 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array( 0 ),
+"transitions": PackedFloat32Array( 1 ),
 "update": 0,
 "values": [ 1.0 ]
 }
@@ -65,8 +65,8 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array( 0 ),
+"transitions": PackedFloat32Array( 1 ),
 "update": 0,
 "values": [ false ]
 }
@@ -80,8 +80,8 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.4 ),
-"transitions": PoolRealArray( 0.25, 1 ),
+"times": PackedFloat32Array( 0, 0.4 ),
+"transitions": PackedFloat32Array( 0.25, 1 ),
 "update": 0,
 "values": [ Vector3( 1, 1, 1 ), Vector3( 7, 7, 7 ) ]
 }
@@ -92,8 +92,8 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array( 0 ),
+"transitions": PackedFloat32Array( 1 ),
 "update": 1,
 "values": [ false ]
 }
@@ -104,8 +104,8 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 0.4, 0.6 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
+"times": PackedFloat32Array( 0, 0.4, 0.6 ),
+"transitions": PackedFloat32Array( 1, 1, 1 ),
 "update": 0,
 "values": [ 1.0, 1.0, 0.0 ]
 }
@@ -116,8 +116,8 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array( 0 ),
+"transitions": PackedFloat32Array( 1 ),
 "update": 1,
 "values": [ true ]
 }
@@ -133,10 +133,10 @@ tracks/4/keys = {
 "start_offset": 0.0,
 "stream": ExtResource( 3 )
 } ],
-"times": PoolRealArray( 0 )
+"times": PackedFloat32Array( 0 )
 }
 
-[sub_resource type="ParticlesMaterial" id=7]
+[sub_resource type="ParticleProcessMaterial" id=7]
 direction = Vector3( 0, 1, 0 )
 spread = 180.0
 initial_velocity = 10.0
@@ -144,7 +144,7 @@ initial_velocity_random = 1.0
 linear_accel = 10.0
 linear_accel_random = 0.5
 
-[sub_resource type="SpatialMaterial" id=8]
+[sub_resource type="StandardMaterial3D" id=8]
 flags_transparent = true
 albedo_texture = ExtResource( 2 )
 
@@ -152,34 +152,34 @@ albedo_texture = ExtResource( 2 )
 material = SubResource( 8 )
 size = Vector2( 1, 1 )
 
-[node name="Projectile" type="Area"]
+[node name="Projectile" type="Area3D"]
 collision_layer = 0
 collision_mask = 16
 script = ExtResource( 1 )
 initial_speed = 8.0
 lifetime = 8.0
 
-[node name="RayCast" type="RayCast" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
-cast_to = Vector3( 0, -99, 0 )
+[node name="RayCast3D" type="RayCast3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+target_position = Vector3( 0, -99, 0 )
 collision_mask = 16
 
-[node name="Shape" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.309424, 0 )
+[node name="Shape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.309424, 0 )
 shape = SubResource( 1 )
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.309424, 0 )
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.309424, 0 )
 billboard = 1
 texture = SubResource( 3 )
 
-[node name="ExplosionShape" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.302013, 0 )
+[node name="ExplosionShape" type="CollisionShape3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.302013, 0 )
 shape = SubResource( 4 )
 disabled = true
 
 [node name="Sprite3D" type="Sprite3D" parent="ExplosionShape"]
-transform = Transform( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 )
+transform = Transform3D( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 )
 axis = 1
 texture = SubResource( 3 )
 
@@ -189,7 +189,7 @@ anims/RESET = SubResource( 6 )
 anims/explode = SubResource( 5 )
 
 [node name="Particles" type="Particles" parent="."]
-transform = Transform( -0.00136096, -0.104242, -0.994551, -0.999915, 0.0130547, 0, 0.0129836, 0.994466, -0.104251, 0, 0.908129, -0.444057 )
+transform = Transform3D( -0.00136096, -0.104242, -0.994551, -0.999915, 0.0130547, 0, 0.0129836, 0.994466, -0.104251, 0, 0.908129, -0.444057 )
 emitting = false
 amount = 100
 lifetime = 0.8

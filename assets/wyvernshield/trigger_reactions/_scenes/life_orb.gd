@@ -1,10 +1,10 @@
-extends KinematicBody
+extends CharacterBody3D
 
-export var heal_percentage :=	0.33
+@export var heal_percentage :=	0.33
 
-export var initial_h_speed := 2.0
-export var initial_v_speed :=	4.0
-export var gravity :=	16.0
+@export var initial_h_speed := 2.0
+@export var initial_v_speed :=	4.0
+@export var gravity :=	16.0
 
 var velocity := Vector3.ZERO
 
@@ -18,12 +18,14 @@ func _ready():
 
 
 func _physics_process(delta):
-	if get_slide_count() > 0:
+	if get_slide_collision_count() > 0:
 		velocity = Vector3.ZERO
 		set_physics_process(false)
 
 	velocity -= Vector3(0, gravity * delta, 0)
-	velocity = move_and_slide(velocity)
+	set_velocity(velocity)
+	move_and_slide()
+	velocity = velocity
 
 
 func can_collect(who : CombatActor):

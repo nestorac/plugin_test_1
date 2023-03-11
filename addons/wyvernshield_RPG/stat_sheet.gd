@@ -1,10 +1,10 @@
-tool
+@tool
 class_name StatSheet, "./stat_sheet.svg"
 extends Resource
 
-export(String, MULTILINE) var stats_as_text setget _set_stats_as_text
-export(Array, Resource) var subsheets
-export var all_multiplier := 1.0
+@export var stats_as_text setget _set_stats_as_text # (String, MULTILINE)
+@export var subsheets # (Array, Resource)
+@export var all_multiplier := 1.0
 
 var stats_add := {}
 var stats_multi := {}
@@ -28,13 +28,13 @@ func load_from_text(v : String):
 
 		var key = x_split[0]
 		if x_split[1] == "+":
-			stats_add[key] = stats_add.get(key, 0.0) + str2var(x_split[2]) * all_multiplier
+			stats_add[key] = stats_add.get(key, 0.0) + str_to_var(x_split[2]) * all_multiplier
 			
 		if x_split[1] == "-":
-			stats_add[key] = stats_add.get(key, 0.0) - str2var(x_split[2]) * all_multiplier
+			stats_add[key] = stats_add.get(key, 0.0) - str_to_var(x_split[2]) * all_multiplier
 			
 		if x_split[1] == "*" || x_split[1] == "x":
-			stats_multi[key] = stats_multi.get(key, 1.0) * ((str2var(x_split[2]) - 1.0) * all_multiplier + 1.0)
+			stats_multi[key] = stats_multi.get(key, 1.0) * ((str_to_var(x_split[2]) - 1.0) * all_multiplier + 1.0)
 
 
 func add_subsheet(subsheet : StatSheet, with_multiplier : float = 1.0) -> Resource:
@@ -46,7 +46,7 @@ func add_subsheet(subsheet : StatSheet, with_multiplier : float = 1.0) -> Resour
 	subsheets.append(subsheet)
 	subsheet.recalculate_recursively()
 	
-	if subsheet.connect("changed", self, "_on_child_changed") != OK:
+	if subsheet.connect("changed",Callable(self,"_on_child_changed")) != OK:
 		printerr("Error connecting signal StatSheet::recalculate_children! (add_subsheet in stat_sheet.gd)")
 	
 	recalculate_children()
@@ -54,7 +54,7 @@ func add_subsheet(subsheet : StatSheet, with_multiplier : float = 1.0) -> Resour
 
 
 func remove_subsheet(subsheet : StatSheet):
-	subsheet.disconnect("changed", self, "_on_child_changed")
+	subsheet.disconnect("changed",Callable(self,"_on_child_changed"))
 	subsheets.erase(subsheet)
 
 	recalculate_children()
@@ -112,7 +112,7 @@ func duplicate_recursively() -> Resource:
 	me_duplicated.subsheets = subsheets.duplicate()
 	for i in me_duplicated.subsheets.size():
 		me_duplicated.subsheets[i] = subsheets[i].duplicate_recursively()
-		me_duplicated.subsheets[i].connect("changed", me_duplicated, "_on_child_changed")
+		me_duplicated.subsheets[i].connect("changed",Callable(me_duplicated,"_on_child_changed"))
 	
 	me_duplicated.recalculate_children()
 	return me_duplicated

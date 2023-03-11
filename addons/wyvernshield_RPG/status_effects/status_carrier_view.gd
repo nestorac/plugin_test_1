@@ -1,12 +1,12 @@
 class_name StatusCarrierView
-extends Spatial
+extends Node3D
 
-export var icon_scene : PackedScene
-export var show_duration := true
+@export var icon_scene : PackedScene
+@export var show_duration := true
 
-onready var sprite := $"Sprite"
-onready var viewport := $"Viewport"
-onready var box := $"Viewport/Status"
+@onready var sprite := $"Sprite2D"
+@onready var viewport := $"SubViewport"
+@onready var box := $"SubViewport/Status"
 
 var effect_list := []
 var effect_nodes := []
@@ -22,7 +22,7 @@ func _process(_delta):
 
 
 func _on_status_effect_applied(effect, insert_pos):
-	var node = icon_scene.instance()
+	var node = icon_scene.instantiate()
 
 	effect_list.insert(insert_pos, effect)
 	effect_nodes.insert(insert_pos, node)
@@ -32,12 +32,12 @@ func _on_status_effect_applied(effect, insert_pos):
 	node.visible = effect.icon != null
 
 	box.add_child(node)
-	update_viewport_size(node.rect_size)
+	update_viewport_size(node.size)
 
 
 func _on_status_effect_removed(_effect, insert_pos):
 	effect_list.remove(insert_pos)
-	update_viewport_size(effect_nodes[0].rect_size)
+	update_viewport_size(effect_nodes[0].size)
 	effect_nodes[insert_pos].free()
 	effect_nodes.remove(insert_pos)
 

@@ -1,15 +1,15 @@
 class_name Hero
-extends KinematicBody
+extends CharacterBody3D
 
 signal health_changed(value, old_value)
 signal health_depleted()
 
-export var move_max_speed := 4.0
-export var move_gravity := 12.0
+@export var move_max_speed := 4.0
+@export var move_gravity := 12.0
 
-onready var combat := $"CombatActor"
+@onready var combat := $"CombatActor"
 
-var velocity := Vector3.ZERO
+#var _velocity := Vector3.ZERO
 var move_locked := false
 var is_attacking := false
 
@@ -18,7 +18,11 @@ func _physics_process(delta):
 	if !move_locked:
 		_process_movement_input(delta)
 
-	velocity = move_and_slide(velocity - Vector3(0, move_gravity * delta, 0), Vector3.UP, true)
+	set_velocity(velocity - Vector3(0, move_gravity * delta, 0))
+	set_up_direction(Vector3.UP)
+	set_floor_stop_on_slope_enabled(true)
+	move_and_slide()
+	velocity = velocity
 
 
 func _process_movement_input(delta):
@@ -35,7 +39,7 @@ func _process_movement_input(delta):
 		$"Anim".play("run")
 
 	if input_vec.x != 0:
-		$"Sprite".flip_h = input_vec.x > 0
+		$"Sprite2D".flip_h = input_vec.x > 0
 
 	var horizontal_velocity = move_max_speed * (0.5 if is_attacking else 1.0) * input_vec
 	velocity = Vector3(
@@ -69,7 +73,7 @@ func _on_combat_stats_changed(stat_sheet):
 
 
 func _on_Hurtbox_body_entered(body : Node):
-	if body.get_collision_layer_bit(7):
+	if body.get_collision_layer_value(7):
 		if !body.has_method("can_collect") || body.can_collect(combat):
 			body.collect(combat)
 			body.queue_free()
